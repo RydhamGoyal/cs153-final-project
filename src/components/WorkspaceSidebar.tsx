@@ -9,7 +9,7 @@ export function ProfileForm() {
     <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
       <h2 className="text-sm font-semibold text-slate-900">Profile fields</h2>
       <p className="mt-2 text-sm text-slate-600">
-        Quick edits for the progress demo. Later: bind every field, nested roles, and
+        Quick edits for a first pass. Later: bind every field, nested roles, and
         resume-backed suggestions.
       </p>
 

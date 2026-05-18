@@ -20,7 +20,7 @@ export function HomePage() {
     <div className="min-h-dvh bg-white">
       <NavHeader />
       <main className="mx-auto max-w-5xl px-4 py-14">
-        <p className="text-sm font-medium text-slate-600">CS 153 · progress scaffold</p>
+        <p className="text-sm font-medium text-slate-600">Work in progress</p>
         <h1 className="mt-3 text-balance text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl">
           Turn profile data into a ship-ready personal site
         </h1>
@@ -35,7 +35,7 @@ export function HomePage() {
             to="/workspace"
             className="inline-flex items-center justify-center rounded-md bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
           >
-            Open workspace demo
+            Open workspace
           </Link>
           <a
             className="inline-flex items-center justify-center rounded-md border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"

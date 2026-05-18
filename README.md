@@ -2,9 +2,9 @@
 
 **GitHub:** [RydhamGoyal/cs153-final-project](https://github.com/RydhamGoyal/cs153-final-project)
 
-Guided workflow scaffold: **profile data in → grounded personal landing page → structured editor → static publish path** (GitHub Pages–friendly).
+Turn profile-ish inputs into a **personal landing page**, tweak it in a **structured editor**, and eventually ship **static files** (GitHub Pages–friendly build).
 
-**Roadmap & TA-facing narrative:** see [`NEXT_STEPS.md`](./NEXT_STEPS.md) (product flow, UI/UX plan including optional [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) skill, artifact discovery, and **compute/resources** language for progress forms).
+More detail on planned flow and UI work: [`NEXT_STEPS.md`](./NEXT_STEPS.md).
 
 ## Quick start
 
@@ -14,40 +14,36 @@ npm install
 npm run dev
 ```
 
-- **Overview:** [http://localhost:5173/](http://localhost:5173/)
-- **Workspace:** [http://localhost:5173/workspace](http://localhost:5173/workspace)
-
-Production build (relative asset paths for GitHub Pages project sites):
+Production build (relative paths so it works as a GitHub Pages project site):
 
 ```bash
 npm run build
 npm run preview
 ```
 
-Output lives in `dist/`.
+Output is in `dist/`.
 
-## What exists in this scaffold
+## What’s in the tree so far
 
 | Area | Status |
 | --- | --- |
-| Core types (`Profile`, sections, `SiteState`) | Implemented |
-| Sample profile + reset | Implemented |
-| Workspace: edit headline fields, reorder/hide sections, two themes | Implemented |
-| Live landing preview | Implemented |
-| SEO snippet (title, description, OG) + copy-to-clipboard | Stub / preview |
-| JSON profile paste (minimal validation) | Stub import |
-| LinkedIn OAuth / export / resume PDF | Not built yet |
-| ZIP export / GitHub Actions deploy | Not built yet |
+| Core types (`Profile`, sections, `SiteState`) | In place |
+| Sample profile + reset | In place |
+| Workspace: fields, reorder/hide sections, two themes | In place |
+| Live landing preview | In place |
+| SEO snippet + copy to clipboard | Rough / preview |
+| JSON profile paste | Minimal validation |
+| LinkedIn / resume / real deploy | Not built yet |
 
-## Architecture (high level)
+## Layout (code)
 
-- **`src/types/site.ts`** — shared types for profile + layout state.
-- **`src/context/siteState.tsx`** — `SiteProvider` + `useSite` reducer-driven state.
-- **`src/context/siteDisplay.ts`** — pure helpers (section labels, visible order).
-- **`src/components/LandingPreview.tsx`** — presentational “published site” view.
-- **`src/lib/seo.ts`** — builds head-tag snippet from `SiteState`.
-- **`src/lib/profileJson.ts`** — minimal JSON import validation.
+- `src/types/site.ts` — shared types  
+- `src/context/siteState.tsx` — provider + reducer  
+- `src/context/siteDisplay.ts` — section ordering helpers  
+- `src/components/LandingPreview.tsx` — “published” preview  
+- `src/lib/seo.ts` — head snippet from state  
+- `src/lib/profileJson.ts` — JSON import guardrails  
 
-## Optional design tooling (not bundled)
+## Optional design helper (not shipped to users)
 
-For AI-assisted UI polish while you implement, you can install the MIT-licensed [ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) via their CLI (`uipro init --ai cursor`). It is **developer tooling**, not a runtime dependency of this app. If you vendor or copy substantial material, cite the repo in your course write-up.
+[ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) is a MIT-licensed Cursor skill you can install with their CLI (`uipro init --ai cursor`) if you want extra UI/UX prompts while building. It’s dev-only, not a runtime dependency.

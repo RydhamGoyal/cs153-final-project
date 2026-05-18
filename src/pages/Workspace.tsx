@@ -41,11 +41,12 @@ export function WorkspacePage() {
           <p className="max-w-3xl text-sm text-slate-600">
             This is the structured editor shell: edit grounded fields, reorder sections, swap
             themes, and preview the landing page without a general-purpose chat UI. Import
-            from LinkedIn / resume is stubbed; JSON paste validates a minimal{' '}
+            from LinkedIn / resume isn’t wired up yet. JSON paste checks a minimal{' '}
             <code className="rounded bg-white px-1 py-0.5 text-xs">Profile</code> shape.
           </p>
           <p className="text-xs text-slate-500">
-            Live tab title (demo): <span className="font-medium text-slate-700">{seo.title}</span>
+            Browser tab title while editing:{' '}
+            <span className="font-medium text-slate-700">{seo.title}</span>
           </p>
         </div>
 
@@ -54,7 +55,7 @@ export function WorkspacePage() {
             <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <h2 className="text-sm font-semibold text-slate-900">Import (stub)</h2>
+                  <h2 className="text-sm font-semibold text-slate-900">Import</h2>
                   <p className="mt-2 text-sm text-slate-600">
                     Later: OAuth / LinkedIn export / resume PDF merge. For now, paste a JSON
                     profile object.

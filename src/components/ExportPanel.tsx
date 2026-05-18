@@ -21,10 +21,10 @@ export function ExportPanel() {
 
   return (
     <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-      <h2 className="text-sm font-semibold text-slate-900">Export & SEO (stub)</h2>
+      <h2 className="text-sm font-semibold text-slate-900">Export & SEO</h2>
       <p className="mt-2 text-sm text-slate-600">
-        The final product will generate a static bundle for GitHub Pages. For now, this
-        panel previews the HTML head tags your publish pipeline should emit from{' '}
+        Final version will emit a static bundle for GitHub Pages. For now this panel previews
+        the HTML head tags your publish step should generate from{' '}
         <code className="rounded bg-slate-100 px-1 py-0.5 text-xs">SiteState</code>.
       </p>
 
