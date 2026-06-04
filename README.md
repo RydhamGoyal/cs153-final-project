@@ -174,9 +174,11 @@ cd frontend && npm install && cd ..
 
 cp .env.example .env          # add your OPENROUTER_API_KEY
 
-# Get the data bundle (DB + FAISS index — too large for git):
-#   <ADD YOUR DATA BUNDLE LINK HERE>
-# Unzip so that data/db/510k.db and data/embeddings/ exist.
+# Get the data bundle (SQLite DB + FAISS index, ~306MB — too large for git)
+# and unzip it at the repo root so data/db/510k.db and data/embeddings/ exist:
+curl -L -o data-bundle.zip \
+  https://github.com/RydhamGoyal/cs153-final-project/releases/download/data-v1/vera-data-bundle.zip
+unzip -o data-bundle.zip && rm data-bundle.zip
 
 bash start.sh                 # backend :8000 + frontend :5173
 ```
