@@ -300,7 +300,7 @@ export function NavigatorPage() {
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.98 }}
                     style={{
-                      position: 'relative', textAlign: 'left', cursor: 'pointer',
+                      position: 'relative', textAlign: 'left', cursor: 'pointer', minWidth: 0,
                       background: active ? 'rgba(59,130,246,0.1)' : 'rgba(255,255,255,0.03)',
                       border: `1px solid ${active ? 'rgba(59,130,246,0.4)' : 'rgba(255,255,255,0.08)'}`,
                       borderRadius: 12, padding: '11px 13px', transition: 'border-color 0.15s, background 0.15s',
