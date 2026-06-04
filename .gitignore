@@ -1,0 +1,32 @@
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+node_modules/
+.DS_Store
+
+# Data files (large — not committed; distributed as a separate data bundle)
+data/raw/
+data/pdfs/
+data/embeddings/
+data/db/
+data/finetune_dataset.jsonl
+
+# Local compose env written by deploy.sh (holds SITE_ADDRESS)
+/.env.deploy
+
+# Fine-tune outputs (adapter is served from Modal, not committed)
+finetune/output/
+
+# Frontend build
+frontend/dist/
+
+# Eval results (commit manually if desired)
+# data/eval/

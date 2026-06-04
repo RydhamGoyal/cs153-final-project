@@ -1,0 +1,42 @@
+### model
+model_name_or_path: Qwen/Qwen2.5-7B-Instruct
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 16
+lora_alpha: 32
+lora_dropout: 0.1
+lora_target: all
+
+### dataset
+dataset: alpaca_en  # replaced at runtime by modal_train.py with our custom dataset
+template: qwen
+cutoff_len: 2048
+# max_samples removed — use full dataset
+overwrite_cache: true
+preprocessing_num_workers: 4
+
+### train
+output_dir: output/adapter
+logging_steps: 10
+save_steps: 200
+per_device_train_batch_size: 2
+per_device_eval_batch_size: 1
+gradient_accumulation_steps: 4
+learning_rate: 0.0001
+num_train_epochs: 3.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 180000000
+val_size: 0.05
+eval_strategy: steps
+eval_steps: 200
+load_best_model_at_end: true
+
+### quantization (enables QLoRA)
+quantization_bit: 4
+quantization_type: nf4
+double_quantization: true

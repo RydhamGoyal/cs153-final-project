@@ -1,0 +1,12 @@
+# Keep build contexts small and fast. data/ is bind-mounted at runtime (see
+# docker-compose.yml), so it must NOT be sent to the Docker daemon as build context.
+**/node_modules
+**/.venv
+**/__pycache__
+**/*.pyc
+.git
+frontend/dist
+data
+finetune/output
+*.log
+.DS_Store

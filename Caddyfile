@@ -1,0 +1,18 @@
+# Reverse proxy + static host with automatic HTTPS.
+# SITE_ADDRESS is injected by docker-compose (e.g. 159-89-1-2.sslip.io).
+# Caddy provisions and renews a Let's Encrypt certificate for it automatically.
+{$SITE_ADDRESS} {
+	encode gzip
+
+	# API calls go to the FastAPI backend container.
+	handle /api/* {
+		reverse_proxy backend:8000
+	}
+
+	# Everything else is the single-page app.
+	handle {
+		root * /srv
+		try_files {path} /index.html
+		file_server
+	}
+}
