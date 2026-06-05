@@ -2,8 +2,8 @@
 
 These scripts reconstruct everything the app needs from public sources: the SQLite
 database, the predicate graph, and the FAISS embedding index. You only need this if you
-want to rebuild the data from scratch. **Most people should just download the prebuilt
-data bundle** (see the root README, "Run locally"); it is the same output these scripts
+want to rebuild the data from scratch. Most people should just download the prebuilt
+data bundle (see the root README, "Run locally"); it is the same output these scripts
 produce.
 
 Run everything from the repo root, with your `.env` filled in.
