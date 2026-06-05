@@ -138,6 +138,37 @@ actually served the request.
 
 ---
 
+## Evaluation
+
+Several forms of evidence validate the system:
+
+Fine-tuning convergence (real training run on Modal A10G): train loss 0.00108, eval loss
+0.00290 over 2,493 steps. The loss curve and a base-vs-fine-tuned output comparison are on
+the About page.
+
+Retrieval benchmark (`setup/08_eval_retrieval.py`): for real ground-truth predicate pairs
+from `predicate_edges`, run the hybrid retrieval agent and check at what rank the cited
+predicate appears. On 300 pairs:
+
+| Hit@1 | Hit@3 | Hit@5 | Hit@10 | MRR |
+|-------|-------|-------|--------|-----|
+| 13.0% | 19.3% | 21.7% | 24.7%  | 0.168 |
+
+These are a deliberate lower bound, and the number is more interesting for what it reveals
+than for its magnitude. It treats the single historically-cited predicate as the only
+correct answer, even though most devices have several equally-valid predicates, so the tool
+surfacing a different but legitimate predicate counts as a miss. It also queries with device
+names (a short proxy) rather than full descriptions, and asks for exact recall among 171,463
+candidates. Real submissions with detailed descriptions, and crediting any valid predicate,
+retrieve substantially better. The metric is most useful as a regression check and as honest
+evidence of the retrieval's current reach.
+
+Grounding: every recommendation traces to real FDA records, and classifications are
+verifiable against the openFDA database (e.g. a pulse oximeter classifies to product code
+DQA, Class II, which is correct).
+
+---
+
 ## Engineering highlights
 
 - Reconstructed a 22,497-edge regulatory graph from unstructured PDFs via OCR, the
@@ -204,6 +235,26 @@ data/       SQLite DB + FAISS index (not in git, see "Run locally" for the data 
 setup/      One-time data-build pipeline (openFDA to DB to predicate graph to embeddings)
 deploy/     Docker/Caddy deploy script + guide
 ```
+
+## Limitations and future work
+
+Honest about what this is and is not:
+
+- The predicate graph is reconstructed from 10,000 OCR-parsed submission documents, not the
+  full corpus, so it covers the most-connected core of the network rather than every edge.
+  More documents would densify it.
+- The retrieval benchmark uses device names as a short proxy for full descriptions and
+  credits only the single historically-cited predicate, so the numbers are a conservative
+  floor rather than a measure of practical usefulness.
+- The substantial-equivalence analysis is decision support, not regulatory advice. It
+  surfaces and reasons about candidates; a human regulatory expert still owns the submission.
+- The fine-tuned model is served scale-to-zero, so the first request after idle pays a GPU
+  cold start. The app falls back to a hosted model when the endpoint is cold or unavailable.
+
+Natural next steps: ingest the full document corpus to complete the graph, credit any valid
+predicate (not just the one cited) in evaluation, add a shortest predicate-path finder and a
+year-by-year timeline of the network, generate an exportable 510(k) substantial-equivalence
+memo, and fine-tune on full descriptions rather than names.
 
 ## About
 

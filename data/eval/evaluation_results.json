@@ -1,0 +1,9 @@
+{
+  "n_evaluated": 300,
+  "hit@1": 13.0,
+  "hit@3": 19.3,
+  "hit@5": 21.7,
+  "hit@10": 24.7,
+  "mrr": 0.168,
+  "method": "Hybrid retrieval agent (SQL product-code filter + FAISS) vs predicate_edges ground truth"
+}
