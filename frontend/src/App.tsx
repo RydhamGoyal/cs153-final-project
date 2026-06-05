@@ -17,7 +17,7 @@ interface AppProps {
 }
 
 export default function App({ preloadedResult, preloadedDescription, preloadedIfu }: AppProps = {}) {
-  const { run, startRun } = useNavigatorRun()
+  const { run, startRun, modelMode } = useNavigatorRun()
 
   // Form fields, initialise from preloaded prop, or fall back to last run's values (handles tab-switch return)
   const [deviceDescription, setDeviceDescription] = useState(preloadedDescription ?? run.description)
@@ -79,7 +79,7 @@ export default function App({ preloadedResult, preloadedDescription, preloadedIf
       </AnimatePresence>
 
       {(loading || (result && completedSteps.length > 0)) && (
-        <AnalysisProgress completedSteps={completedSteps} loading={loading} />
+        <AnalysisProgress completedSteps={completedSteps} loading={loading} modelMode={modelMode} />
       )}
 
       <AnimatePresence>

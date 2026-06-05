@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, useInView, useMotionValue, useTransform, animate } from 'framer-motion'
-import { Activity, ArrowRight, ChevronDown, Shield, Search, GitBranch, Scale, FileText, CheckCircle, AlertTriangle, Zap, Database, Clock, BarChart3 } from 'lucide-react'
+import { Activity, ArrowRight, ChevronDown, Shield, Search, GitBranch, Scale, FileText, CheckCircle, AlertTriangle, Zap, Database, Clock, BarChart3, ExternalLink } from 'lucide-react'
 // Import only the icons we use so the whole simple-icons set isn't bundled.
 import {
   siLangchain, siMeta, siPytorch, siHuggingface, siModal, siFastapi,
@@ -454,6 +454,69 @@ export function Landing() {
                 <PredicateChainDiagram />
               </FadeIn>
             </div>
+          </Section>
+        </div>
+
+        {/* ── PROOF OF NEED ── */}
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+          <Section>
+            <FadeIn>
+              <div style={{ textAlign: 'center', marginBottom: 48 }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.2)', color: '#fbbf24', fontSize: 12, padding: '4px 12px', borderRadius: 100, marginBottom: 20 }}>
+                  <FileText className="w-3 h-3" /> Documented Need
+                </div>
+                <h2 style={{ fontSize: 'clamp(28px,4vw,44px)', fontWeight: 700, letterSpacing: '-0.02em', color: '#f0f6ff', marginBottom: 16 }}>
+                  This is not a hypothetical problem
+                </h2>
+                <p style={{ fontSize: 15, color: 'rgba(148,163,184,0.7)', maxWidth: 600, margin: '0 auto' }}>
+                  The 510(k) pathway is the most common route to market for medical devices in the US,
+                  and predicate selection is hard enough that the FDA publishes official guidance on it.
+                </p>
+              </div>
+            </FadeIn>
+
+            {/* Stat cards */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 40 }}>
+              {[
+                { value: '~3,000+', label: 'Devices cleared via 510(k) each year', sub: 'The most common US path to market', color: '#60a5fa' },
+                { value: '~142 days', label: 'Median time to clearance (2025)', sub: 'Roughly five months per submission', color: '#818cf8' },
+                { value: '$50K-250K', label: 'Cost of a single 510(k) submission', sub: 'Including testing and consulting', color: '#a78bfa' },
+                { value: '$400-600', label: 'Per hour for regulatory consultants', sub: 'Predicate research alone: weeks', color: '#c084fc' },
+              ].map((s, i) => (
+                <FadeIn key={s.label} delay={i * 0.08}>
+                  <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 16, padding: '24px 20px', height: '100%' }}>
+                    <div style={{ fontSize: 'clamp(22px,2.4vw,30px)', fontWeight: 800, color: s.color, letterSpacing: '-0.02em', marginBottom: 10 }}>{s.value}</div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#cbd5e1', lineHeight: 1.4, marginBottom: 6 }}>{s.label}</div>
+                    <div style={{ fontSize: 11.5, color: '#475569', lineHeight: 1.4 }}>{s.sub}</div>
+                  </div>
+                </FadeIn>
+              ))}
+            </div>
+
+            {/* Source links */}
+            <FadeIn delay={0.2}>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: 11, fontWeight: 600, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 14 }}>
+                  As documented by
+                </div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
+                  {[
+                    { label: 'FDA: Best Practices for Selecting a Predicate', url: 'https://www.fda.gov/regulatory-information/search-fda-guidance-documents/best-practices-selecting-predicate-device-support-premarket-notification-510k-submission' },
+                    { label: 'FDA: How to Find and Use Predicate Devices', url: 'https://www.fda.gov/medical-devices/premarket-notification-510k/how-find-and-effectively-use-predicate-devices' },
+                    { label: 'Emergo by UL: Predicate Selection Whitepaper', url: 'https://www.emergobyul.com/resources/us-fda-medical-device-predicate-selection-510k-submissions' },
+                    { label: '510(k) Cost Breakdown', url: 'https://www.complizen.ai/post/how-much-does-510k-cost' },
+                  ].map(src => (
+                    <a key={src.url} href={src.url} target="_blank" rel="noopener noreferrer"
+                      style={{ display: 'inline-flex', alignItems: 'center', gap: 7, padding: '8px 14px', borderRadius: 100, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', color: '#94a3b8', fontSize: 12.5, textDecoration: 'none', transition: 'all 0.15s' }}
+                      onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(59,130,246,0.4)'; e.currentTarget.style.color = '#cbd5e1' }}
+                      onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = '#94a3b8' }}>
+                      {src.label}
+                      <ExternalLink className="w-3 h-3" style={{ opacity: 0.6, flexShrink: 0 }} />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
           </Section>
         </div>
 
