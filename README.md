@@ -264,8 +264,9 @@ system design are all original work, developed with the help of AI coding assist
 (Claude Code and Cursor). LLM inference uses OpenRouter-hosted Llama models and a
 self-trained Qwen2.5-7B LoRA adapter.
 
-## References
+## References and data sources
 
-- openFDA Device API: https://open.fda.gov/apis/device/510k/
+- openFDA Device API (device records): https://open.fda.gov/apis/device/510k/
+- Innolitics FDA Device Explorer (OCR submission text used to reconstruct the predicate graph): https://fda.innolitics.com
 - FDA predicate selection guidance: https://www.fda.gov/medical-devices/premarket-notification-510k/how-find-and-effectively-use-predicate-devices
 - Predicate analysis inspiration: https://github.com/wcedmisten/510k.fyi
