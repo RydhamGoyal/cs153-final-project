@@ -1,3 +1,4 @@
+// RecommendationCard.tsx: Headline result card: the recommended predicate device and its classification.
 import React from 'react'
 import { motion } from 'framer-motion'
 import { ShieldCheck, AlertTriangle, CheckSquare, Sparkles } from 'lucide-react'

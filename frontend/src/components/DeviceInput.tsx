@@ -1,3 +1,4 @@
+// DeviceInput.tsx: The device-description + indications-for-use form and the Analyze button.
 import React from 'react'
 import { motion } from 'framer-motion'
 import { Microscope, Loader2, ArrowRight, FileText, Stethoscope } from 'lucide-react'

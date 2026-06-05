@@ -1,3 +1,4 @@
+// Landing.tsx: Public landing page: hero, tech carousel, problem, the three tools, and CTA.
 import React, { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, useInView, useMotionValue, useTransform, animate } from 'framer-motion'
@@ -552,7 +553,7 @@ export function Landing() {
                   5-agent AI pipeline
                 </h2>
                 <p style={{ fontSize: 15, color: 'rgba(148,163,184,0.7)', maxWidth: 560, margin: '0 auto' }}>
-                  A LangGraph state machine orchestrates five specialized agents that classify, retrieve, analyze, and report — all in under 30 seconds.
+                  A LangGraph state machine orchestrates five specialized agents that classify, retrieve, analyze, and report, all in under 30 seconds.
                 </p>
               </div>
             </FadeIn>
@@ -657,7 +658,7 @@ export function Landing() {
                   What's under the hood
                 </h2>
                 <p style={{ fontSize: 15, color: 'rgba(148,163,184,0.7)', maxWidth: 560, margin: '0 auto' }}>
-                  A breakdown of every technical layer — from data infrastructure to model fine-tuning.
+                  A breakdown of every technical layer, from data infrastructure to model fine-tuning.
                 </p>
               </div>
             </FadeIn>
@@ -678,7 +679,7 @@ export function Landing() {
                     <p style={{ fontSize: 13, color: 'rgba(148,163,184,0.7)', lineHeight: 1.7, marginBottom: 16 }}>
                       Full openFDA 510(k) database imported into SQLite with custom indexes across K-number,
                       product code, and decision date. Predicate relationships extracted from 10,000 real submission
-                      documents via Innolitics OCR API at 1 req/s — each document parsed with regex to identify
+                      documents via Innolitics OCR API at 1 req/s, each document parsed with regex to identify
                       cited predicate K-numbers. 22,497 confirmed predicate edges stored as a directed graph.
                     </p>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
@@ -699,7 +700,7 @@ export function Landing() {
                       Retrieval combines SQL filtering (exact product code match) with FAISS semantic search
                       over 171,463 sentence embeddings. A semantic validation step catches classification errors:
                       if SQL results have average cosine similarity &lt; 0.25 against the query, the system flags
-                      the product code as wrong and falls back to pure semantic search — automatically
+                      the product code as wrong and falls back to pure semantic search, automatically
                       self-correcting without user intervention.
                     </p>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
@@ -726,7 +727,7 @@ export function Landing() {
                       Predicate ancestry is mapped using a recursive Common Table Expression (CTE) in SQL
                       that walks the directed predicate graph backwards through generations. Starting from a
                       candidate device, it traces every predicate-of-predicate relationship until reaching
-                      a root device with no known predicate — often a device cleared in the late 1970s or 1980s
+                      a root device with no known predicate, often a device cleared in the late 1970s or 1980s
                       under the original 510(k) framework.
                     </p>
                     <div style={{ background: 'rgba(0,0,0,0.3)', borderRadius: 8, padding: '10px 14px', fontFamily: 'monospace', fontSize: 11, color: '#64748b', border: '1px solid rgba(255,255,255,0.05)', marginBottom: 14 }}>
@@ -753,7 +754,7 @@ export function Landing() {
                     <p style={{ fontSize: 13, color: 'rgba(148,163,184,0.7)', lineHeight: 1.7, marginBottom: 16 }}>
                       The 5-agent pipeline is built as a LangGraph <code style={{ fontSize: 11, background: 'rgba(255,255,255,0.06)', padding: '1px 5px', borderRadius: 4, color: '#94a3b8' }}>StateGraph</code> where
                       each node is a specialized agent that reads from and writes to a shared typed state object.
-                      Agents run sequentially with full state passed between them — the classification output
+                      Agents run sequentially with full state passed between them, the classification output
                       informs retrieval, which informs chain exploration, which informs SE analysis.
                       Timing metadata is captured per-agent and surfaced in the UI.
                     </p>
@@ -781,7 +782,7 @@ export function Landing() {
                       Substantial equivalence scoring uses a domain-prompted LLM with structured JSON output.
                       Each candidate is evaluated against FDA's 21 CFR 807.87(f) standard: same intended use,
                       same technological characteristics, and safety question analysis. Scores are calibrated
-                      with explicit rubric enforcement (≥90: identical, 70–85: minor differences, 40–69: significant,
+                      with explicit rubric enforcement (≥90: identical, 70-85: minor differences, 40-69: significant,
                       &lt;40: incompatible) to prevent score collapse where all candidates receive the same score.
                       Up to 1,500 characters of description context passed per device.
                     </p>

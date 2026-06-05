@@ -1,3 +1,4 @@
+// SEAnalysisPanel.tsx: Per-candidate substantial-equivalence breakdown (scores, differences, testing).
 import React from 'react'
 import { motion } from 'framer-motion'
 import { CheckCircle, XCircle, AlertTriangle } from 'lucide-react'

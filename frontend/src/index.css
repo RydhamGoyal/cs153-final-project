@@ -16,7 +16,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Gradient orbs — these are what make glassmorphism actually visible */
+/* Gradient orbs, these are what make glassmorphism actually visible */
 #bg-orb-1 {
   position: fixed;
   top: -200px;

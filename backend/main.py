@@ -1,11 +1,11 @@
 """
 FastAPI application.
 Endpoints:
-  POST /api/analyze          — main pipeline
-  GET  /api/device/{k}       — device lookup
-  GET  /api/chain/{k}        — predicate chain for a device
-  GET  /api/eval/results     — load evaluation metrics
-  GET  /api/health           — health check
+  POST /api/analyze         , main pipeline
+  GET  /api/device/{k}      , device lookup
+  GET  /api/chain/{k}       , predicate chain for a device
+  GET  /api/eval/results    , load evaluation metrics
+  GET  /api/health          , health check
 """
 import json
 import os
@@ -182,7 +182,7 @@ async def autocomplete_devices(q: str = "", limit: int = 8):
 async def get_sample_network():
     """
     Returns all devices that have 2+ predicate connections (no artificial cap).
-    Pure SQL — avoids Python-side IN-clause blowup with large node sets.
+    Pure SQL, avoids Python-side IN-clause blowup with large node sets.
     Must be registered BEFORE /api/network/{k_number}.
     """
     import aiosqlite

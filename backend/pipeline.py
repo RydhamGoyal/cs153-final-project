@@ -1,5 +1,5 @@
 """
-LangGraph state machine — orchestrates all 5 agents in sequence.
+LangGraph state machine, orchestrates all 5 agents in sequence.
 State flows: classify → retrieve → explore chains → analyze SE → generate report
 Each step appends to processing_steps for frontend progress display.
 """
@@ -43,7 +43,7 @@ async def classify_node(state: PipelineState) -> dict:
         "classification": classification,
         "processing_steps": [{
             "step": "classification",
-            "label": f"Classified as {classification.get('product_code', '?')} — {classification.get('advisory_committee_description', '')}",
+            "label": f"Classified as {classification.get('product_code', '?')}, {classification.get('advisory_committee_description', '')}",
             "duration_ms": int((time.time() - start) * 1000),
             "data": classification
         }]
@@ -106,7 +106,7 @@ async def analyze_se_node(state: PipelineState) -> dict:
         "model_info": {"requested": state.get('model_mode', 'openrouter'), "used": model_used},
         "processing_steps": [{
             "step": "se_analysis",
-            "label": f"Analyzed substantial equivalence via {model_label} — best match score: {best_score}/100",
+            "label": f"Analyzed substantial equivalence via {model_label}, best match score: {best_score}/100",
             "duration_ms": int((time.time() - start) * 1000),
             "data": {"analyses_count": len(se_analysis), "best_score": best_score, "model_used": model_used}
         }]

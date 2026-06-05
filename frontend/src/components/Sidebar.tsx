@@ -1,3 +1,4 @@
+// Sidebar.tsx: Collapsible analysis-history sidebar, backed by localStorage.
 import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Clock, Trash2, ChevronLeft, ChevronRight, Activity } from 'lucide-react'

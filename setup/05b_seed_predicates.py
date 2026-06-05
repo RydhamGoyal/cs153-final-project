@@ -6,7 +6,7 @@ FDA automated PDF access is blocked (HTTP 403). This script provides
 a representative set of manually verified predicate chains so the
 visualization and evaluation have real data to display.
 
-These relationships are real — each was cited in the actual 510(k) submission.
+These relationships are real, each was cited in the actual 510(k) submission.
 Sources: FDA 510(k) database search at accessdata.fda.gov
 """
 import sqlite3
@@ -90,7 +90,7 @@ def seed_predicates():
     total = cursor.fetchone()[0]
     conn.close()
 
-    print(f"Seeded {inserted} predicate edges ({skipped_missing} skipped — K-numbers not in DB)")
+    print(f"Seeded {inserted} predicate edges ({skipped_missing} skipped, K-numbers not in DB)")
     print(f"Total predicate edges in DB: {total}")
     print()
     print("Note: run setup/05_extract_predicates.py if you later obtain PDFs to add more edges.")

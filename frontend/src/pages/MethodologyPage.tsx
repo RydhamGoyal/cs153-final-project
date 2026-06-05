@@ -1,3 +1,4 @@
+// MethodologyPage.tsx: About tab: platform capabilities, architecture, and the fine-tune showcase.
 import React, { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Database, Search, GitBranch, Scale, Zap, BarChart3, Play, RotateCcw } from 'lucide-react'
@@ -525,7 +526,7 @@ function BeforeAfterDemo() {
           <button onClick={runDemo} disabled={isRunning}
             style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 16px', borderRadius: 8, fontSize: 12, fontWeight: 600, background: isRunning ? 'rgba(255,255,255,0.04)' : 'linear-gradient(135deg,#6366f1,#8b5cf6)', color: isRunning ? '#334155' : 'white', border: 'none', cursor: isRunning ? 'not-allowed' : 'pointer' }}>
             <Play className="w-3 h-3" />
-            {phase === 'idle' ? 'Run Demo' : phase === 'done' ? 'Run Again' : 'Running…'}
+            {phase === 'idle' ? 'Run Demo' : phase === 'done' ? 'Run Again' : 'Running...'}
           </button>
           {phase !== 'idle' && (
             <button onClick={reset} style={{ width: 34, height: 34, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: '#64748b', cursor: 'pointer' }}>
@@ -550,7 +551,7 @@ function BeforeAfterDemo() {
           </div>
           <div style={{ fontFamily: 'Inter, system-ui, sans-serif', fontSize: 13, color: '#94a3b8', lineHeight: 1.8, minHeight: 180 }}>
             {phase === 'idle' ? (
-              <span style={{ color: '#334155', fontStyle: 'italic' }}>Output will appear here…</span>
+              <span style={{ color: '#334155', fontStyle: 'italic' }}>Output will appear here...</span>
             ) : (
               <>
                 {baseText}
@@ -580,9 +581,9 @@ function BeforeAfterDemo() {
           </div>
           <div style={{ fontFamily: 'monospace', fontSize: 11.5, color: '#a5b4fc', lineHeight: 1.9, minHeight: 180, whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
             {phase === 'idle' ? (
-              <span style={{ color: '#334155', fontStyle: 'italic', fontFamily: 'Inter, system-ui, sans-serif', fontSize: 13 }}>Output will appear here…</span>
+              <span style={{ color: '#334155', fontStyle: 'italic', fontFamily: 'Inter, system-ui, sans-serif', fontSize: 13 }}>Output will appear here...</span>
             ) : (phase === 'base' && fineIdx === 0) ? (
-              <span style={{ color: '#334155', fontStyle: 'italic', fontFamily: 'Inter, system-ui, sans-serif', fontSize: 13 }}>Waiting for base model to finish…</span>
+              <span style={{ color: '#334155', fontStyle: 'italic', fontFamily: 'Inter, system-ui, sans-serif', fontSize: 13 }}>Waiting for base model to finish...</span>
             ) : (
               <>
                 <span style={{ color: '#94a3b8' }}>{fineText}</span>
@@ -630,7 +631,7 @@ function FineTuneSection() {
             Domain-Specialized SE Analysis
           </h2>
           <p style={{ fontSize: 14, color: 'rgba(148,163,184,0.7)', maxWidth: 560, lineHeight: 1.7 }}>
-            Qwen2.5-7B-Instruct fine-tuned on 7,500 FDA-derived examples via QLoRA — learning the precise
+            Qwen2.5-7B-Instruct fine-tuned on 7,500 FDA-derived examples via QLoRA, learning the precise
             structured output format, regulatory citation style, and domain vocabulary of 510(k) SE analysis.
           </p>
         </div>
@@ -750,7 +751,7 @@ const AGENT_STATE_NODES = [
   {
     label: 'Classification',
     model: 'Llama 3.3 70B',
-    latency: '3–5 s',
+    latency: '3-5 s',
     color: '#60a5fa',
     border: 'rgba(59,130,246,0.35)',
     bg: 'rgba(59,130,246,0.08)',
@@ -759,7 +760,7 @@ const AGENT_STATE_NODES = [
   {
     label: 'Retrieval',
     model: 'SQL + FAISS',
-    latency: '1–2 s',
+    latency: '1-2 s',
     color: '#818cf8',
     border: 'rgba(99,102,241,0.35)',
     bg: 'rgba(99,102,241,0.08)',
@@ -777,16 +778,16 @@ const AGENT_STATE_NODES = [
   {
     label: 'SE Analysis',
     model: 'Llama 3.3 70B ×3',
-    latency: '10–18 s',
+    latency: '10-18 s',
     color: '#c084fc',
     border: 'rgba(192,132,252,0.35)',
     bg: 'rgba(192,132,252,0.08)',
-    writes: ['se_score: 0–100', 'same_use: boolean', 'tech_diffs: string[]', 'recommendation: str'],
+    writes: ['se_score: 0-100', 'same_use: boolean', 'tech_diffs: string[]', 'recommendation: str'],
   },
   {
     label: 'Report Generator',
     model: 'Llama 3.3 70B',
-    latency: '5–8 s',
+    latency: '5-8 s',
     color: '#e879f9',
     border: 'rgba(232,121,249,0.35)',
     bg: 'rgba(232,121,249,0.08)',
@@ -800,7 +801,7 @@ function AgentStateFlow() {
   return (
     <div ref={ref} style={{ margin: '28px 24px 0', background: 'rgba(0,0,0,0.2)', borderRadius: 20, padding: '24px 20px', border: '1px solid rgba(255,255,255,0.06)' }}>
       <p style={{ fontSize: 11, fontWeight: 600, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.1em', textAlign: 'center', marginBottom: 20 }}>
-        LangGraph Typed State — What Each Agent Reads &amp; Writes
+        LangGraph Typed State, What Each Agent Reads &amp; Writes
       </p>
       <div style={{ display: 'flex', alignItems: 'stretch', gap: 0 }}>
         {AGENT_STATE_NODES.map((node, i) => (
@@ -832,7 +833,7 @@ function AgentStateFlow() {
         ))}
       </div>
       <div style={{ textAlign: 'center', marginTop: 12, fontSize: 10, color: '#1e293b' }}>
-        All agents share one TypedDict — each node reads upstream results and appends its own output. Total latency: ~20–35 s end-to-end.
+        All agents share one TypedDict, each node reads upstream results and appends its own output. Total latency: ~20-35 s end-to-end.
       </div>
     </div>
   )
@@ -843,25 +844,25 @@ const DESIGN_DECISIONS = [
   {
     chose: 'LangGraph StateGraph',
     over: 'LCEL chains / bare asyncio',
-    reason: 'Typed shared state lets each agent read upstream results without coupling. The graph is inspectable — you can pause at any node, replay from a checkpoint, or add conditional branches without touching other agents.',
+    reason: 'Typed shared state lets each agent read upstream results without coupling. The graph is inspectable, you can pause at any node, replay from a checkpoint, or add conditional branches without touching other agents.',
     color: '#a78bfa', bg: 'rgba(139,92,246,0.08)', border: 'rgba(139,92,246,0.2)',
   },
   {
     chose: 'FAISS IndexFlatIP',
     over: 'ChromaDB · Pinecone · HNSW',
-    reason: '171k × 384-dim embeddings fit in ~250 MB RAM. Exact exhaustive search takes < 80 ms — approximate indexes trade recall for speed we don\'t need. Zero external services, fully reproducible.',
+    reason: '171k × 384-dim embeddings fit in ~250 MB RAM. Exact exhaustive search takes < 80 ms, approximate indexes trade recall for speed we don\'t need. Zero external services, fully reproducible.',
     color: '#60a5fa', bg: 'rgba(59,130,246,0.08)', border: 'rgba(59,130,246,0.2)',
   },
   {
     chose: 'QLoRA rank-16 (NF4)',
     over: 'Full fine-tune · LoRA fp16',
-    reason: '4-bit NF4 quantization cuts GPU memory by ~75% vs fp16 LoRA. Runs on a single A10G (24 GB) in 1 h 52 m. The 154 MB adapter overlays any base checkpoint — no custom serving infra needed.',
+    reason: '4-bit NF4 quantization cuts GPU memory by ~75% vs fp16 LoRA. Runs on a single A10G (24 GB) in 1 h 52 m. The 154 MB adapter overlays any base checkpoint, no custom serving infra needed.',
     color: '#c084fc', bg: 'rgba(192,132,252,0.08)', border: 'rgba(192,132,252,0.2)',
   },
   {
     chose: 'Qwen2.5-7B-Instruct',
     over: 'Llama 3.1 8B · Mistral 7B',
-    reason: 'Stronger structured JSON output reliability at the 7B scale. SE analysis demands valid parseable JSON every call — Qwen2.5 closes brackets and follows the schema consistently; Llama 3.1 8B required extra post-processing fallbacks.',
+    reason: 'Stronger structured JSON output reliability at the 7B scale. SE analysis demands valid parseable JSON every call, Qwen2.5 closes brackets and follows the schema consistently; Llama 3.1 8B required extra post-processing fallbacks.',
     color: '#f472b6', bg: 'rgba(244,114,182,0.08)', border: 'rgba(244,114,182,0.2)',
   },
   {
@@ -873,7 +874,7 @@ const DESIGN_DECISIONS = [
   {
     chose: 'all-MiniLM-L6-v2',
     over: 'OpenAI ada-002 · BGE-large',
-    reason: '384-dim vectors at 22 ms/batch on CPU. All 171 k descriptions embedded locally in ~45 min — no API cost, no rate limits. Cosine similarity generalises well to FDA device text despite the domain gap from general-purpose training.',
+    reason: '384-dim vectors at 22 ms/batch on CPU. All 171 k descriptions embedded locally in ~45 min, no API cost, no rate limits. Cosine similarity generalises well to FDA device text despite the domain gap from general-purpose training.',
     color: '#818cf8', bg: 'rgba(99,102,241,0.08)', border: 'rgba(99,102,241,0.2)',
   },
 ]
@@ -939,18 +940,18 @@ export function MethodologyPage() {
         <TechCard icon={<Database className="w-4 h-4" />} title="Data Infrastructure" color="#60a5fa" colorRaw="59,130,246"
           tags={['174k device records','22,497 predicate edges','SQLite + indexed','Innolitics OCR API','10k documents parsed']}>
           Full openFDA 510(k) database in SQLite with compound indexes. Predicate relationships extracted
-          from 10,000 real submission documents via Innolitics OCR API — each parsed to identify cited K-numbers.
+          from 10,000 real submission documents via Innolitics OCR API, each parsed to identify cited K-numbers.
         </TechCard>
 
         <TechCard icon={<Search className="w-4 h-4" />} title="Hybrid Retrieval + Self-Correction" color="#818cf8" colorRaw="99,102,241"
           tags={['FAISS IndexFlatIP','171k embeddings','all-MiniLM-L6-v2','Semantic validation','Auto-fallback on σ<0.25']}>
           SQL filters by product code; FAISS searches 171,463 sentence embeddings for semantic similarity.
-          Auto-corrects bad product code classifications if cosine similarity &lt;0.25 — no user intervention.
+          Auto-corrects bad product code classifications if cosine similarity &lt;0.25, no user intervention.
         </TechCard>
 
         <TechCard icon={<GitBranch className="w-4 h-4" />} title="Predicate Graph Traversal" color="#a78bfa" colorRaw="139,92,246"
           tags={['Recursive CTE','Directed graph','Multi-hop','Back to 1976']}>
-          <span>Ancestry mapped via recursive SQL CTE walking the predicate_edges directed graph backwards —
+          <span>Ancestry mapped via recursive SQL CTE walking the predicate_edges directed graph backwards , 
           each hop surfaces the predicate-of-predicate until reaching a root device from the original 510(k) era.</span>
           <div style={{ background:'rgba(0,0,0,0.3)',borderRadius:8,padding:'8px 12px',fontFamily:'monospace',fontSize:11,color:'#64748b',border:'1px solid rgba(255,255,255,0.05)',marginTop:10 }}>
             <span style={{color:'#6366f1'}}>WITH RECURSIVE</span> chain <span style={{color:'#6366f1'}}>AS</span> (<br/>
@@ -970,7 +971,7 @@ export function MethodologyPage() {
         <TechCard icon={<Scale className="w-4 h-4" />} title="SE Analysis Engine" color="#4ade80" colorRaw="34,197,94"
           tags={['21 CFR 807.87(f)','Structured JSON output','Score rubric enforcement','1500-char context','Differentiated ranking']}>
           Each candidate scored against FDA's 21 CFR 807.87(f) standard. Scoring enforces differentiation:
-          ≥90 identical, 70–85 minor differences, 40–69 significant, &lt;40 incompatible — preventing score collapse.
+          ≥90 identical, 70-85 minor differences, 40-69 significant, &lt;40 incompatible, preventing score collapse.
         </TechCard>
 
         <TechCard icon={<BarChart3 className="w-4 h-4" />} title="Evaluation Framework" color="#fbbf24" colorRaw="251,191,36"

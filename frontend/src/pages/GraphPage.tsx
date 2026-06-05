@@ -1,3 +1,4 @@
+// GraphPage.tsx: Predicate Network tab: live d3-force graph of the FDA citation network on canvas.
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -34,7 +35,7 @@ const DEFAULT_COLORS: [string, string, string, string] = [
   'rgba(255,255,255,0.07)', 'rgba(255,255,255,0.28)', 'rgba(255,255,255,0.2)', '#94a3b8',
 ]
 const CLASS_LABELS: Record<string, string> = { '1': 'Class I', '2': 'Class II', '3': 'Class III' }
-const LEFT_PANEL_W = 340   // Network Intelligence panel width — graph fits to the right of it
+const LEFT_PANEL_W = 340   // Network Intelligence panel width, graph fits to the right of it
 
 const PIPELINE_AGENTS = [
   { label: 'Device Ingestion',    icon: Database,   stat: '175,013 devices' },
@@ -133,7 +134,7 @@ export function GraphPage() {
     }
 
     // Only display nodes that have at least one edge in the displayed graph.
-    // Nodes with 0 displayed connections appear isolated — confusing because their
+    // Nodes with 0 displayed connections appear isolated, confusing because their
     // predicates exist but fall below the degree-≥2 threshold for the main view.
     // Those devices remain reachable via search / focus mode.
     const displayNodes = apiNodes.filter(n => connCount[n.k_number] > 0)
@@ -244,7 +245,7 @@ export function GraphPage() {
       const { x: mx, y: my, over } = mouseRef.current
       const W = canvas.width, H = canvas.height
 
-      // Subtle mouse repulsion — with dead zone so nodes stay clickable
+      // Subtle mouse repulsion, with dead zone so nodes stay clickable
       if (over && sim && nodes.length > 0) {
         const worldR = Math.min(55 / k, 70)    // smaller radius = less aggressive
         const wmx = (mx - tx) / k, wmy = (my - ty) / k
@@ -253,12 +254,12 @@ export function GraphPage() {
           if (node.fx != null) continue
           const dx = (node.x ?? 0) - wmx, dy = (node.y ?? 0) - wmy
           const d2 = dx * dx + dy * dy
-          // Dead zone: never push a node the cursor is ON — keeps it clickable
+          // Dead zone: never push a node the cursor is ON, keeps it clickable
           const clickR = node.radius + 8 / k
           if (d2 < clickR * clickR) continue
           if (d2 < worldR * worldR) {
             const dist = Math.sqrt(d2) || 0.001, t = 1 - dist / worldR
-            node.vx = (node.vx ?? 0) + (dx / dist) * t * t * 1.2   // was 5 — much gentler
+            node.vx = (node.vx ?? 0) + (dx / dist) * t * t * 1.2   // was 5, much gentler
             node.vy = (node.vy ?? 0) + (dy / dist) * t * t * 1.2
             heated = true
           }
@@ -354,7 +355,7 @@ export function GraphPage() {
         if (k > 1.1) {
           const fs2 = Math.max(5, 7 / k); ctx.font = `${fs2}px system-ui, sans-serif`
           ctx.textAlign = 'center'; ctx.textBaseline = 'top'; ctx.fillStyle = 'rgba(203,213,225,0.75)'
-          const name = node.device_name.length > 28 ? node.device_name.slice(0, 26) + '…' : node.device_name
+          const name = node.device_name.length > 28 ? node.device_name.slice(0, 26) + '...' : node.device_name
           ctx.fillText(name, nx, ny + r + 3 / k, r * 4.5)
         }
       }
@@ -607,7 +608,7 @@ export function GraphPage() {
             <Search className="w-3.5 h-3.5" style={{ color: '#475569', flexShrink: 0 }} />
             <input
               type="text"
-              placeholder={isolationMode ? `Focused: ${focusedK}` : 'K-number to isolate subgraph…'}
+              placeholder={isolationMode ? `Focused: ${focusedK}` : 'K-number to isolate subgraph...'}
               value={searchInput}
               onChange={e => handleSearchInput(e.target.value)}
               onKeyDown={e => { if (e.key === 'Enter') focusOnDevice(searchInput); if (e.key === 'Escape') setShowAc(false) }}
@@ -672,7 +673,7 @@ export function GraphPage() {
       {loading && (
         <div style={{ position: 'absolute', inset: 0, zIndex: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 12, background: '#060912' }}>
           <Network className="w-8 h-8 animate-pulse" style={{ color: '#3b82f6' }} />
-          <p style={{ fontSize: 14, color: '#334155' }}>Loading predicate network…</p>
+          <p style={{ fontSize: 14, color: '#334155' }}>Loading predicate network...</p>
         </div>
       )}
 
@@ -687,7 +688,7 @@ export function GraphPage() {
           <motion.div key={hoveredNode.id} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.1 }}
             style={{ position: 'absolute', left: Math.min(tooltipPos.x + 14, cw - 200), top: Math.min(tooltipPos.y - 8, ch - 120), zIndex: 30, pointerEvents: 'none', background: 'rgba(8,12,22,0.92)', backdropFilter: 'blur(24px)', border: `1px solid ${clsColor(hoveredNode.cls)}44`, borderRadius: 10, padding: '10px 14px', minWidth: 180, boxShadow: `0 8px 32px rgba(0,0,0,0.6)` }}>
             <div style={{ fontFamily: 'monospace', fontSize: 11, fontWeight: 700, color: clsColor(hoveredNode.cls), marginBottom: 5 }}>{hoveredNode.id}</div>
-            <div style={{ fontSize: 12, color: '#cbd5e1', lineHeight: 1.4, marginBottom: 6 }}>{hoveredNode.name.length > 50 ? hoveredNode.name.slice(0, 48) + '…' : hoveredNode.name}</div>
+            <div style={{ fontSize: 12, color: '#cbd5e1', lineHeight: 1.4, marginBottom: 6 }}>{hoveredNode.name.length > 50 ? hoveredNode.name.slice(0, 48) + '...' : hoveredNode.name}</div>
             <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
               <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 4, background: `${clsColor(hoveredNode.cls)}22`, border: `1px solid ${clsColor(hoveredNode.cls)}44`, color: clsColor(hoveredNode.cls) }}>
                 {CLASS_LABELS[hoveredNode.cls] ?? `Class ${hoveredNode.cls}`}
@@ -738,7 +739,7 @@ export function GraphPage() {
         )}
       </AnimatePresence>
 
-      {/* ── Network Intelligence — full-height left panel ─────────────────── */}
+      {/* ── Network Intelligence, full-height left panel ─────────────────── */}
       <div style={{
         position: 'absolute', left: 0, top: 0, zIndex: 10,
         width: LEFT_PANEL_W, height: '100%',
@@ -796,9 +797,9 @@ export function GraphPage() {
               {/* Impact banner */}
               <div style={{ background: 'linear-gradient(135deg, rgba(74,222,128,0.07), rgba(59,130,246,0.07))', border: '1px solid rgba(74,222,128,0.18)', borderRadius: 12, padding: '12px 14px', marginBottom: 18 }}>
                 <div style={{ fontSize: 11, fontWeight: 700, color: '#4ade80', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6 }}>Regulatory Impact</div>
-                <div style={{ fontSize: 13, fontWeight: 700, color: '#f0f6ff', marginBottom: 4 }}>$40K–$80K saved per submission</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: '#f0f6ff', marginBottom: 4 }}>$40K-$80K saved per submission</div>
                 <div style={{ fontSize: 12, color: 'rgba(148,163,184,0.8)', lineHeight: 1.6 }}>
-                  The right predicate eliminates 40–160 hours of consultant research at $400–600/hr. A wrong predicate means a 3–6 month rejection delay worth $200K+.
+                  The right predicate eliminates 40-160 hours of consultant research at $400-600/hr. A wrong predicate means a 3-6 month rejection delay worth $200K+.
                 </div>
               </div>
 
@@ -820,7 +821,7 @@ export function GraphPage() {
               {/* Class legend */}
               <div style={{ marginBottom: 16 }}>
                 <div style={{ fontSize: 11, fontWeight: 600, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>Device Classification</div>
-                {[['#4ade80','Class I','Low risk — general controls'], ['#60a5fa','Class II','Moderate risk — special controls'], ['#f87171','Class III','High risk — PMA or 510(k)']].map(([c, cls, desc]) => (
+                {[['#4ade80','Class I','Low risk, general controls'], ['#60a5fa','Class II','Moderate risk, special controls'], ['#f87171','Class III','High risk, PMA or 510(k)']].map(([c, cls, desc]) => (
                   <div key={cls} style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 8 }}>
                     <div style={{ width: 10, height: 10, borderRadius: 3, background: c, flexShrink: 0 }} />
                     <div>
@@ -890,7 +891,7 @@ export function GraphPage() {
                 </div>
               </div>
               {!insights ? (
-                <div style={{ fontSize: 12, color: '#334155' }}>Loading…</div>
+                <div style={{ fontSize: 12, color: '#334155' }}>Loading...</div>
               ) : insights.dynasties.length === 0 ? (
                 <div style={{ fontSize: 12, color: '#334155' }}>No dynasties found.</div>
               ) : insights.dynasties.map(d => {
@@ -941,11 +942,11 @@ export function GraphPage() {
               <div style={{ marginBottom: 14 }}>
                 <div style={{ fontSize: 13, fontWeight: 700, color: '#e2e8f0', marginBottom: 6 }}>Cross-Category Connectors</div>
                 <div style={{ fontSize: 12, color: 'rgba(148,163,184,0.7)', lineHeight: 1.6 }}>
-                  Devices cited across the most distinct product categories. These are universal regulatory anchors — their established equivalence precedent spans multiple areas of medicine, dramatically lowering barriers for novel devices.
+                  Devices cited across the most distinct product categories. These are universal regulatory anchors, their established equivalence precedent spans multiple areas of medicine, dramatically lowering barriers for novel devices.
                 </div>
               </div>
               {!insights ? (
-                <div style={{ fontSize: 12, color: '#334155' }}>Loading…</div>
+                <div style={{ fontSize: 12, color: '#334155' }}>Loading...</div>
               ) : insights.bridges.length === 0 ? (
                 <div style={{ fontSize: 12, color: '#334155' }}>No bridges found.</div>
               ) : insights.bridges.map((b, i) => {
@@ -1064,7 +1065,7 @@ export function GraphPage() {
               userSelect: 'none',
             }}
           >
-            {/* Tile header — drag handle */}
+            {/* Tile header, drag handle */}
             <div
               style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 18px 12px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, cursor: 'grab' }}
               onPointerDown={e => {
@@ -1104,7 +1105,7 @@ export function GraphPage() {
             {/* Tile body */}
             <div style={{ overflowY: 'auto', padding: '20px', flex: 1 }}>
               {tileLoading ? (
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 120, color: '#334155', fontSize: 13 }}>Loading…</div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 120, color: '#334155', fontSize: 13 }}>Loading...</div>
               ) : !tileData ? (
                 <div style={{ color: '#f87171', fontSize: 13 }}>Could not load device details.</div>
               ) : (() => {
@@ -1160,7 +1161,7 @@ export function GraphPage() {
                         <div style={{ fontSize: 10, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>Summary</div>
                         <p style={{ fontSize: 12, color: '#64748b', lineHeight: 1.7, margin: 0 }}>
                           {cleanDesc(String(d.description_text))}
-                          {String(d.description_text).length > 480 ? '…' : ''}
+                          {String(d.description_text).length > 480 ? '...' : ''}
                         </p>
                       </div>
                     )}

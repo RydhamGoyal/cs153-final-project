@@ -7,7 +7,7 @@ Strategy:
 2. FAISS semantic search: get top-50 most similar devices by description
 3. Validate SQL results: if the SQL matches are semantically irrelevant to the
    description (avg similarity < threshold), the LLM classified the wrong product
-   code — fall back to pure semantic search in that case.
+   code, fall back to pure semantic search in that case.
 4. When SQL is valid: use semantic scores to re-rank within the product-code set.
    Never mix in semantic-only devices from different product categories.
 """
@@ -15,7 +15,7 @@ from backend.db import get_devices_by_product_code, get_recall_history
 from backend.embeddings import semantic_search
 
 # If the average semantic similarity of SQL matches is below this, the product
-# code is almost certainly wrong — use semantic search instead.
+# code is almost certainly wrong, use semantic search instead.
 RELEVANCE_THRESHOLD = 0.25
 
 
@@ -54,7 +54,7 @@ async def run_retrieval_agent(
     scored = {}
 
     if sql_is_relevant:
-        # Product code is correct — SQL matches are the primary candidate set.
+        # Product code is correct, SQL matches are the primary candidate set.
         # Semantic scores re-rank within that set only.
         for c in sql_candidates:
             k = c['k_number'].upper()
@@ -65,10 +65,10 @@ async def run_retrieval_agent(
             if k in scored:
                 scored[k]['semantic_score'] = c['similarity_score']
                 scored[k]['composite_score'] = 0.5 + (c['similarity_score'] * 0.5)
-            # Intentionally ignore semantic-only results — they are from different
+            # Intentionally ignore semantic-only results, they are from different
             # product categories and would pollute the candidate set.
     else:
-        # Product code was wrong or returned irrelevant results — trust semantic entirely.
+        # Product code was wrong or returned irrelevant results, trust semantic entirely.
         for c in semantic_candidates:
             k = c['k_number'].upper()
             scored[k] = {**c, 'sql_match': False, 'composite_score': c['similarity_score']}

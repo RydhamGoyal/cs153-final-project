@@ -1,6 +1,6 @@
 # Production stack for the 510(k) Navigator.
-#   backend — FastAPI + LangGraph + FAISS (internal only)
-#   web     — Caddy serving the built frontend + reverse-proxying /api, with auto-HTTPS
+#   backend, FastAPI + LangGraph + FAISS (internal only)
+#   web    , Caddy serving the built frontend + reverse-proxying /api, with auto-HTTPS
 #
 # SITE_ADDRESS is passed in by deploy/deploy.sh when it runs `docker compose up`.
 services:

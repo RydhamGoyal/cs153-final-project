@@ -1,3 +1,4 @@
+// PredicateChainViz.tsx: Renders a device's predicate ancestry chain as a vertical lineage.
 import React, { useMemo } from 'react'
 import {
   ReactFlow, type Node, type Edge,
@@ -9,7 +10,7 @@ import type { PredicateChainNode } from '../types'
 interface Props {
   chainNodes: PredicateChainNode[]
   highlightKNumber?: string
-  /** When true, rendered in a compact container — hides minimap, uses tighter layout */
+  /** When true, rendered in a compact container, hides minimap, uses tighter layout */
   compact?: boolean
 }
 
@@ -41,7 +42,7 @@ export const PredicateChainViz: React.FC<Props> = ({ chainNodes, highlightKNumbe
                 {node.k_number}
               </div>
               <div style={{ fontSize: compact ? 10 : 11, color: '#cbd5e1', lineHeight: 1.3, marginBottom: 2 }}>
-                {(node.device_name ?? '').substring(0, compact ? 28 : 36)}{(node.device_name?.length ?? 0) > (compact ? 28 : 36) ? '…' : ''}
+                {(node.device_name ?? '').substring(0, compact ? 28 : 36)}{(node.device_name?.length ?? 0) > (compact ? 28 : 36) ? '...' : ''}
               </div>
               <div style={{ fontSize: 10, color: '#475569' }}>
                 {node.decision_date?.substring(0, 4)}

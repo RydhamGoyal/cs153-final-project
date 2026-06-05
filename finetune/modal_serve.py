@@ -6,13 +6,13 @@ This is what makes the "Powered by fine-tuned Qwen2.5-7B" claim real: the backen
 SE-analysis agent can route to this endpoint instead of OpenRouter.
 
 Design notes:
-  • Scale-to-zero — the container spins down after `SCALEDOWN_WINDOW` seconds idle,
+  • Scale-to-zero, the container spins down after `SCALEDOWN_WINDOW` seconds idle,
     so it only costs Modal credits while actually serving. First call after idle pays
     a ~60-90s cold start (model load); the backend gracefully falls back to OpenRouter
     if a request times out, so the app never breaks.
-  • Dynamic LoRA — vLLM loads the base model once and applies the 154MB adapter as a
+  • Dynamic LoRA, vLLM loads the base model once and applies the 154MB adapter as a
     named module, so we never have to merge/store a full fine-tuned checkpoint.
-  • Bearer-token auth — vLLM's --api-key requires `Authorization: Bearer <token>` on
+  • Bearer-token auth, vLLM's --api-key requires `Authorization: Bearer <token>` on
     every request, so a leaked URL alone can't burn credits.
 
 Deploy:
@@ -54,7 +54,7 @@ auth_secret = modal.Secret.from_name("vllm-api-key")
 
 @app.function(
     image=image,
-    gpu="A10G",                     # 24GB — fits Qwen2.5-7B bf16 (~15GB) + KV cache
+    gpu="A10G",                     # 24GB, fits Qwen2.5-7B bf16 (~15GB) + KV cache
     volumes={ADAPTER_PATH: adapter_volume, "/root/.cache/huggingface": hf_cache_volume},
     secrets=[auth_secret],
     scaledown_window=SCALEDOWN_WINDOW,

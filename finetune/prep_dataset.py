@@ -3,13 +3,13 @@ Build fine-tuning dataset from description_text stored in the SQLite DB.
 
 Strategy:
   Positive examples (5,515): confirmed FDA SE pairs where BOTH devices have
-    description text — model sees real comparative signal on both sides.
+    description text, model sees real comparative signal on both sides.
   Negative examples (~2,000): cross-product-code pairings (devices from
-    incompatible categories) — teaches the model to discriminate, not just
+    incompatible categories), teaches the model to discriminate, not just
     parrot "strong/85" for every input.
 
 Without negatives, training on all-positive data produces a model that
-always outputs "strong recommendation" regardless of input — worse than
+always outputs "strong recommendation" regardless of input, worse than
 the base model.
 """
 import sqlite3
@@ -119,7 +119,7 @@ def build_dataset():
             "same_intended_use": True,
             "same_intended_use_explanation": (
                 f"{pair['device_name']} shares the same intended use as "
-                f"{pair['predicate_name']} — FDA confirmed substantial equivalence."
+                f"{pair['predicate_name']}, FDA confirmed substantial equivalence."
             ),
             "same_technological_characteristics": True,
             "technological_differences": [],
@@ -166,7 +166,7 @@ def build_dataset():
                 "Incompatible intended use creates unacceptable risk if used as predicate"
             ],
             "additional_testing_required": [
-                "Full clinical study required — predicate pathway not appropriate"
+                "Full clinical study required, predicate pathway not appropriate"
             ],
             "se_likelihood_score": score,
             "recommendation": "not_recommended",

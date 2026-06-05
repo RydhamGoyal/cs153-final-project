@@ -1,6 +1,6 @@
 """
 Agent 4: Substantial Equivalence Analysis Agent
-The intellectually complex agent — uses LLM to analyze SE between a new device and candidates.
+The intellectually complex agent, uses LLM to analyze SE between a new device and candidates.
 If a fine-tuned model is available (served locally via ollama), uses that.
 Otherwise uses OpenRouter.
 """
@@ -38,7 +38,7 @@ Respond ONLY with a valid JSON object in this exact format:
 }
 
 Do not include any text outside the JSON object. Be precise and cite specific regulatory standards where relevant.
-The se_likelihood_score must reflect actual similarity — do not default to the same score for every candidate. A device with identical technology should score 90+. Minor differences score 70-85. Significant differences score 40-69. Incompatible devices score below 40."""
+The se_likelihood_score must reflect actual similarity, do not default to the same score for every candidate. A device with identical technology should score 90+. Minor differences score 70-85. Significant differences score 40-69. Incompatible devices score below 40."""
 
 
 SE_ANALYSIS_PROMPT_TEMPLATE = """Analyze substantial equivalence for this new device versus the candidate predicate:

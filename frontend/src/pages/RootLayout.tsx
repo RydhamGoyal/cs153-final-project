@@ -1,3 +1,4 @@
+// RootLayout.tsx: App shell: the top navigation bar and the routed page outlet.
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Activity, Compass, BookOpen, Database, Network } from 'lucide-react'
@@ -13,7 +14,7 @@ export function RootLayout() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  // Exact match only — prevents /app matching /app/database etc.
+  // Exact match only, prevents /app matching /app/database etc.
   const isActive = (path: string) => location.pathname === path
 
   return (

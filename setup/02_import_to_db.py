@@ -111,7 +111,7 @@ def import_devices(conn: sqlite3.Connection):
                 record.get('expedited_review_flag', ''),
                 openfda.get('regulation_number', [None])[0] if openfda.get('regulation_number') else None,
                 openfda.get('device_class', [None])[0] if openfda.get('device_class') else None,
-                None  # description_text — populated later from PDFs
+                None  # description_text, populated later from PDFs
             ))
 
         cursor.executemany("""

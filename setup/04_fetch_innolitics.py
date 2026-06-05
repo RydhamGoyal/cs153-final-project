@@ -65,7 +65,7 @@ def fetch_device(k_number: str, api_key: str) -> dict | None:
         if resp.status_code == 404:
             return None
         if resp.status_code == 429:
-            # Respect rate limit — wait longer and retry once
+            # Respect rate limit, wait longer and retry once
             time.sleep(5)
             resp = requests.get(url, headers=headers, timeout=30)
         resp.raise_for_status()
@@ -136,7 +136,7 @@ def main():
     valid_k_numbers = {row[0].upper() for row in cursor.fetchall()}
     print(f"Loaded {len(valid_k_numbers)} K-numbers from database")
 
-    # Select devices to fetch — SESE decisions, most recent first, skip already fetched
+    # Select devices to fetch, SESE decisions, most recent first, skip already fetched
     limit_clause = "" if args.all else f"LIMIT {args.limit}"
     cursor.execute(f"""
         SELECT k_number FROM devices
@@ -166,7 +166,7 @@ def main():
             if markdown:
                 text_found += 1
 
-                # Store up to 8000 chars — FAISS only uses the first 500 for embeddings,
+                # Store up to 8000 chars, FAISS only uses the first 500 for embeddings,
                 # but fine-tuning needs more context to capture SE analysis sections
                 cursor.execute(
                     "UPDATE devices SET description_text = ? WHERE k_number = ? COLLATE NOCASE",

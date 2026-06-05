@@ -22,7 +22,7 @@ CRITICAL RULES:
 - The product code MUST match the device's PRIMARY function. Do not use a code for a different device type.
 - Before finalizing, ask yourself: "Does this product code describe a device with the same intended use as what I was given?"
 - Common codes to know: DQA=pulse oximeter, IYO=ultrasound, FRN=glucose monitor, LZG=ECG, KZH=blood pressure monitor, FPA=infusion pump, GEI=surgical stapler, KWQ=ventilator, MRY=MRI, LMF=CT scanner
-- If uncertain, set confidence to "medium" or "low" — do not guess a plausible-sounding but wrong code.
+- If uncertain, set confidence to "medium" or "low", do not guess a plausible-sounding but wrong code.
 
 Respond ONLY with a JSON object:
 {

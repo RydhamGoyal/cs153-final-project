@@ -1,7 +1,7 @@
 """
 Agent 3: Predicate Chain Explorer
 For each candidate predicate device, traverse its ancestry chain recursively.
-This is the visually impressive part — shows the genealogy of device clearances.
+This is the visually impressive part, shows the genealogy of device clearances.
 Returns structured data for the frontend D3 visualization.
 """
 from backend.db import get_predicate_chain, get_device

@@ -1,3 +1,4 @@
+// DatabasePage.tsx: Device Database tab: searchable, paginated table over all 175k devices.
 import React, { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Search, ChevronLeft, ChevronRight, AlertTriangle, GitBranch, Building2, Calendar, Tag, Shield, ChevronDown } from 'lucide-react'
@@ -110,7 +111,7 @@ function DeviceDetail({ kNumber }: { kNumber: string }) {
                   <div style={{ fontSize: 10, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>Summary</div>
                   <p style={{ fontSize: 12, color: '#64748b', lineHeight: 1.7, margin: 0 }}>
                     {cleanDescription(String(device.description_text))}
-                    {String(device.description_text).length > 480 ? '…' : ''}
+                    {String(device.description_text).length > 480 ? '...' : ''}
                   </p>
                 </div>
               )}
@@ -257,8 +258,8 @@ export function DatabasePage() {
               >
                 <span style={{ fontFamily: 'monospace', fontSize: 12, fontWeight: 600, color: isOpen ? '#93c5fd' : '#60a5fa' }}>{device.k_number}</span>
                 <span style={{ fontSize: 13, color: '#cbd5e1', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: 12 }}>{device.device_name}</span>
-                <span style={{ fontSize: 12, color: '#64748b', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: 8 }}>{device.applicant || '—'}</span>
-                <span style={{ fontFamily: 'monospace', fontSize: 12, color: '#818cf8' }}>{device.product_code || '—'}</span>
+                <span style={{ fontSize: 12, color: '#64748b', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: 8 }}>{device.applicant || ', '}</span>
+                <span style={{ fontFamily: 'monospace', fontSize: 12, color: '#818cf8' }}>{device.product_code || ', '}</span>
                 <span>
                   {device.device_class ? (
                     <span style={{ padding: '2px 7px', borderRadius: 4, fontSize: 11, fontWeight: 600,
@@ -266,13 +267,13 @@ export function DatabasePage() {
                       color: device.device_class === '3' ? '#f87171' : device.device_class === '2' ? '#60a5fa' : '#4ade80',
                       border: `1px solid ${device.device_class === '3' ? 'rgba(239,68,68,0.2)' : device.device_class === '2' ? 'rgba(59,130,246,0.2)' : 'rgba(34,197,94,0.2)'}`,
                     }}>{device.device_class}</span>
-                  ) : '—'}
+                  ) : ', '}
                 </span>
-                <span style={{ fontSize: 11, color: '#475569' }}>{device.decision_date ? device.decision_date.substring(0, 10) : '—'}</span>
+                <span style={{ fontSize: 11, color: '#475569' }}>{device.decision_date ? device.decision_date.substring(0, 10) : ', '}</span>
                 <span>
                   {device.recall_count > 0
                     ? <span style={{ display: 'flex', alignItems: 'center', gap: 3 }}><AlertTriangle className="w-3 h-3" style={{ color: '#f87171' }} /><span style={{ fontSize: 11, color: '#f87171' }}>{device.recall_count}</span></span>
-                    : <span style={{ fontSize: 11, color: '#1e293b' }}>—</span>}
+                    : <span style={{ fontSize: 11, color: '#1e293b' }}>, </span>}
                 </span>
                 <motion.span
                   animate={{ rotate: isOpen ? 180 : 0 }}

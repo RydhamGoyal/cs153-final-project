@@ -1,3 +1,4 @@
+// AnalysisProgress.tsx: Live progress tracker: shows each of the 5 agents completing as an analysis runs.
 import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle, Circle, Loader2 } from 'lucide-react'

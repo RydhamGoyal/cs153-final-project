@@ -1,7 +1,7 @@
 """
 Fine-tune Qwen2.5-7B-Instruct on 510(k) SE analysis data using Modal GPU compute.
 
-Model: Qwen/Qwen2.5-7B-Instruct — ungated, no HuggingFace approval needed,
+Model: Qwen/Qwen2.5-7B-Instruct, ungated, no HuggingFace approval needed,
        strong structured JSON output capability, better than Mistral 7B for this task.
 
 Usage:
@@ -45,10 +45,10 @@ app = modal.App("510k-finetune", image=image)
 
 
 @app.function(
-    gpu="A10G",       # ~$1.10/hr — sufficient for Qwen2.5 7B QLoRA
+    gpu="A10G",       # ~$1.10/hr, sufficient for Qwen2.5 7B QLoRA
     timeout=86400,    # 24-hour max (Modal's hard ceiling)
     volumes={"/output": volume},
-    # No HuggingFace secret needed — Qwen2.5 is ungated
+    # No HuggingFace secret needed, Qwen2.5 is ungated
 )
 def train(dataset_jsonl: bytes, config_yaml: bytes):
     """Runs inside Modal's GPU container."""

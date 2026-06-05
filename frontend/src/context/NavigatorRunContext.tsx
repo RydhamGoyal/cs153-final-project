@@ -32,7 +32,7 @@ function humanizeError(err: unknown): string {
   if (raw.includes('429') || raw.toLowerCase().includes('rate limit'))
     return 'The AI model is temporarily rate-limited. Please wait 30 seconds and try again.'
   if (raw.includes('timeout') || raw.includes('Timeout'))
-    return 'Analysis timed out — the pipeline can take up to 40 s. Please try again.'
+    return 'Analysis timed out, the pipeline can take up to 40 s. Please try again.'
   if (raw.includes('500') || raw.includes('Internal'))
     return 'The server encountered an error during analysis. Please try again.'
   return 'Analysis could not complete. Please try again in a moment.'
@@ -42,7 +42,7 @@ export function NavigatorRunProvider({ children }: { children: ReactNode }) {
   const [run, setRun] = useState<RunState>(IDLE)
   const [modelMode, setModelMode] = useState<ModelMode>('openrouter')
 
-  // startRun intentionally never cancels — it lives here in context which never unmounts.
+  // startRun intentionally never cancels, it lives here in context which never unmounts.
   // Switching tabs, refreshing the Navigator component, etc. cannot interrupt it.
   const startRun = useCallback(async (description: string, ifu: string) => {
     const runId = `run-${Date.now()}-${Math.random().toString(36).slice(7)}`

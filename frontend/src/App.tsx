@@ -19,12 +19,12 @@ interface AppProps {
 export default function App({ preloadedResult, preloadedDescription, preloadedIfu }: AppProps = {}) {
   const { run, startRun } = useNavigatorRun()
 
-  // Form fields — initialise from preloaded prop, or fall back to last run's values (handles tab-switch return)
+  // Form fields, initialise from preloaded prop, or fall back to last run's values (handles tab-switch return)
   const [deviceDescription, setDeviceDescription] = useState(preloadedDescription ?? run.description)
   const [indicationsForUse, setIndicationsForUse] = useState(preloadedIfu ?? run.ifu)
   const [activeChainKey, setActiveChainKey] = useState<string | null>(null)
 
-  // Derived from context — preloadedResult overrides when viewing a history entry
+  // Derived from context, preloadedResult overrides when viewing a history entry
   const loading = run.isRunning
   const error = run.error
   const result = preloadedResult !== undefined ? preloadedResult : run.result
@@ -97,7 +97,7 @@ export default function App({ preloadedResult, preloadedDescription, preloadedIf
                   <div className="flex items-center gap-2 rounded-lg px-3 py-2 text-xs"
                     style={{ background: 'rgba(251,191,36,0.08)', border: '1px solid rgba(251,191,36,0.2)', color: '#fcd34d' }}>
                     <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#fbbf24' }} />
-                    The fine-tuned endpoint is warming up — this analysis was served by Llama 3.3 70B. Try again shortly for the fine-tuned model.
+                    The fine-tuned endpoint is warming up, this analysis was served by Llama 3.3 70B. Try again shortly for the fine-tuned model.
                   </div>
                 ) : null}
               </div>

@@ -1,3 +1,4 @@
+// NavigatorPage.tsx: Navigator tab: example picker, input form, run history, and results.
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Zap, Check } from 'lucide-react'
@@ -37,7 +38,7 @@ const EXAMPLES: Example[] = [
     emoji: '⚡',
     category: 'Cardiovascular & Monitoring',
     blurb: 'AED · biphasic shock · Class III',
-    deviceDescription: 'Portable automated external defibrillator (AED) with biphasic truncated exponential waveform delivering 150–360 J. Real-time ECG rhythm analysis algorithm identifies shockable rhythms (VF, pulseless VT). Voice and visual prompts guide rescuer through CPR and shock delivery. Self-test capability.',
+    deviceDescription: 'Portable automated external defibrillator (AED) with biphasic truncated exponential waveform delivering 150-360 J. Real-time ECG rhythm analysis algorithm identifies shockable rhythms (VF, pulseless VT). Voice and visual prompts guide rescuer through CPR and shock delivery. Self-test capability.',
     indicationsForUse: 'Treatment of victims of sudden cardiac arrest exhibiting ventricular fibrillation or pulseless ventricular tachycardia by trained and lay rescuers.',
   },
   {
@@ -53,7 +54,7 @@ const EXAMPLES: Example[] = [
     emoji: '🩸',
     category: 'Diabetes & IVD',
     blurb: 'Electrochemical strips · Class II · product code NBW',
-    deviceDescription: 'Handheld electrochemical glucose meter using enzyme-based biosensor test strips. Requires 0.5 µL capillary whole blood. Reports glucose in mg/dL (20–600 range) within 5 seconds. Stores 500 readings with date/time stamps. Bluetooth sync to mobile app.',
+    deviceDescription: 'Handheld electrochemical glucose meter using enzyme-based biosensor test strips. Requires 0.5 µL capillary whole blood. Reports glucose in mg/dL (20-600 range) within 5 seconds. Stores 500 readings with date/time stamps. Bluetooth sync to mobile app.',
     indicationsForUse: 'Quantitative self-monitoring of blood glucose in capillary whole blood for people with diabetes.',
   },
   {
@@ -69,7 +70,7 @@ const EXAMPLES: Example[] = [
     emoji: '💉',
     category: 'Drug Delivery',
     blurb: 'Ambulatory · basal/bolus · Class II',
-    deviceDescription: 'Wearable ambulatory insulin infusion pump delivering rapid-acting insulin subcutaneously via a disposable cannula. Programmable basal rates (0.025–25 U/hr) and bolus dosing with an integrated bolus calculator. Occlusion detection, low-reservoir alerts, and Bluetooth connectivity to a controller app.',
+    deviceDescription: 'Wearable ambulatory insulin infusion pump delivering rapid-acting insulin subcutaneously via a disposable cannula. Programmable basal rates (0.025-25 U/hr) and bolus dosing with an integrated bolus calculator. Occlusion detection, low-reservoir alerts, and Bluetooth connectivity to a controller app.',
     indicationsForUse: 'Continuous subcutaneous delivery of insulin at set and variable rates for the management of diabetes mellitus in persons requiring insulin.',
   },
   {
@@ -77,7 +78,7 @@ const EXAMPLES: Example[] = [
     emoji: '😴',
     category: 'Respiratory',
     blurb: 'Sleep apnea therapy · Class II',
-    deviceDescription: 'Continuous positive airway pressure (CPAP) device delivering pressurized air (4–20 cmH2O) through a nasal/full-face mask. Features automatic pressure adjustment (APAP mode), integrated heated humidifier, Bluetooth compliance data recording, and ramp-up function.',
+    deviceDescription: 'Continuous positive airway pressure (CPAP) device delivering pressurized air (4-20 cmH2O) through a nasal/full-face mask. Features automatic pressure adjustment (APAP mode), integrated heated humidifier, Bluetooth compliance data recording, and ramp-up function.',
     indicationsForUse: 'Treatment of obstructive sleep apnea in adult patients in home and clinical settings.',
   },
   {
@@ -93,7 +94,7 @@ const EXAMPLES: Example[] = [
     emoji: '🫀',
     category: 'Implants & Surgical',
     blurb: 'Drug-eluting · cobalt-chromium · Class III',
-    deviceDescription: 'Balloon-expandable drug-eluting coronary stent fabricated from a cobalt-chromium alloy scaffold coated with a biodegradable polymer eluting everolimus. Available in 2.25–4.0 mm diameters. Mounted on a rapid-exchange delivery catheter.',
+    deviceDescription: 'Balloon-expandable drug-eluting coronary stent fabricated from a cobalt-chromium alloy scaffold coated with a biodegradable polymer eluting everolimus. Available in 2.25-4.0 mm diameters. Mounted on a rapid-exchange delivery catheter.',
     indicationsForUse: 'Improving coronary luminal diameter in patients with symptomatic ischemic heart disease due to de novo native coronary artery lesions.',
   },
   {
@@ -117,7 +118,7 @@ const EXAMPLES: Example[] = [
     emoji: '👁️',
     category: 'Implants & Surgical',
     blurb: 'Foldable acrylic · cataract · Class II',
-    deviceDescription: 'Single-piece foldable hydrophobic acrylic posterior-chamber intraocular lens with UV-blocking chromophore and aspheric optic. Implanted in the capsular bag following phacoemulsification. Available in 6.0–30.0 D powers.',
+    deviceDescription: 'Single-piece foldable hydrophobic acrylic posterior-chamber intraocular lens with UV-blocking chromophore and aspheric optic. Implanted in the capsular bag following phacoemulsification. Available in 6.0-30.0 D powers.',
     indicationsForUse: 'Replacement of the natural crystalline lens in adult patients undergoing cataract surgery to restore visual acuity.',
   },
   {
@@ -156,7 +157,7 @@ export function NavigatorPage() {
     ifu?: string
   }>({})
 
-  // Save completed run to history — deduplicated by runId so remounts don't double-save
+  // Save completed run to history, deduplicated by runId so remounts don't double-save
   useEffect(() => {
     if (!run.result || run.isRunning || !run.runId) return
     if (history.some(h => h.id === run.runId)) return
@@ -206,7 +207,7 @@ export function NavigatorPage() {
   return (
     <div style={{ position: 'relative', height: 'calc(100vh - 72px)', overflow: 'hidden' }}>
 
-      {/* History sidebar — overlaid on the left so it never shifts the centered
+      {/* History sidebar, overlaid on the left so it never shifts the centered
           content column. The center of the page stays fixed whether it's open or not. */}
       <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, zIndex: 30, display: 'flex' }}>
         <Sidebar
@@ -219,7 +220,7 @@ export function NavigatorPage() {
         />
       </div>
 
-      {/* Main content — full width; the inner column is centered on the viewport
+      {/* Main content, full width; the inner column is centered on the viewport
           and does not move when the sidebar opens. */}
       <div style={{ height: '100%', overflowY: 'auto', overflowX: 'hidden' }}>
 
@@ -235,7 +236,7 @@ export function NavigatorPage() {
               <span style={{ fontSize: 11, fontWeight: 600, color: '#60a5fa', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                 How to use Vera
               </span>
-              {/* Model selector — switch inference between OpenRouter Llama and the fine-tuned Qwen */}
+              {/* Model selector, switch inference between OpenRouter Llama and the fine-tuned Qwen */}
               <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{ fontSize: 10, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600 }}>SE Model</span>
                 <div style={{ display: 'flex', gap: 2, padding: 3, borderRadius: 100, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', opacity: run.isRunning ? 0.5 : 1 }}>
@@ -285,7 +286,7 @@ export function NavigatorPage() {
                 Select from {EXAMPLES.length} example devices to see the product in action
               </p>
               {selectedExample && (
-                <span style={{ fontSize: 11, color: '#475569' }}>Loaded below — hit Analyze Device ↓</span>
+                <span style={{ fontSize: 11, color: '#475569' }}>Loaded below, hit Analyze Device ↓</span>
               )}
             </div>
 

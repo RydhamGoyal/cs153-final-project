@@ -1,3 +1,4 @@
+// FeatureShowcase.tsx: Platform-capability pills with per-feature info popovers (used on the About page).
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Zap, Network, Database, GitBranch, Search, FileText, Route, Clock, BarChart3, X, Info } from 'lucide-react'
