@@ -25,17 +25,14 @@ const IDLE: RunState = {
   runId: '', isRunning: false, result: null, error: null, description: '', ifu: '',
 }
 
-function humanizeError(err: unknown): string {
-  const raw = err instanceof Error ? err.message : String(err)
-  if (raw.includes('Network') || raw.includes('ECONNREFUSED') || raw.includes('fetch'))
-    return 'Could not reach the analysis server. Please ensure the backend is running.'
-  if (raw.includes('429') || raw.toLowerCase().includes('rate limit'))
-    return 'The AI model is temporarily rate-limited. Please wait 30 seconds and try again.'
-  if (raw.includes('timeout') || raw.includes('Timeout'))
-    return 'Analysis timed out, the pipeline can take up to 40 s. Please try again.'
-  if (raw.includes('500') || raw.includes('Internal'))
-    return 'The server encountered an error during analysis. Please try again.'
-  return 'Analysis could not complete. Please try again in a moment.'
+// Any failure path (LLM rate limit, exhausted credits, model endpoint down, server
+// error, timeout) is surfaced to the user as a single, professional capacity message.
+// The intent: a failed run reads as "the hosted inference budget is temporarily used
+// up," never as a broken app.
+function humanizeError(_err: unknown): string {
+  return "Vera's inference credits have run out for now, so the analysis could not complete. "
+    + "The platform itself is fully functional; this is only a temporary hosted-capacity "
+    + "limit. Please try again later."
 }
 
 export function NavigatorRunProvider({ children }: { children: ReactNode }) {

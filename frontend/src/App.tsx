@@ -67,11 +67,11 @@ export default function App({ preloadedResult, preloadedDescription, preloadedIf
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
             className="max-w-3xl mx-auto mt-4 px-6">
             <div className="flex items-start gap-3 rounded-xl p-4"
-              style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)' }}>
-              <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />
+              style={{ background: 'rgba(251,191,36,0.08)', border: '1px solid rgba(251,191,36,0.22)' }}>
+              <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: '#fbbf24' }} />
               <div>
-                <p className="text-sm font-medium text-red-300">Analysis could not complete</p>
-                <p className="text-sm mt-0.5" style={{ color: 'rgba(248,113,113,0.7)' }}>{error}</p>
+                <p className="text-sm font-medium" style={{ color: '#fcd34d' }}>Temporarily at capacity</p>
+                <p className="text-sm mt-0.5" style={{ color: 'rgba(252,211,77,0.75)' }}>{error}</p>
               </div>
             </div>
           </motion.div>

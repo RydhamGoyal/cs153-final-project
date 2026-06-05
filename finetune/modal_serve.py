@@ -33,7 +33,11 @@ hf_cache_volume = modal.Volume.from_name("510k-hf-cache", create_if_missing=True
 BASE_MODEL = "Qwen/Qwen2.5-7B-Instruct"
 ADAPTER_NAME = "510k-se"            # the `model` value the backend requests
 ADAPTER_PATH = "/adapter"          # where the volume is mounted
-SCALEDOWN_WINDOW = 120             # seconds idle before the container stops (scale to zero)
+# Cost controls: spin the GPU down quickly when idle, and never run more than one GPU
+# container at a time. Combined with a workspace spending limit in the Modal dashboard,
+# this keeps demo spend to cents.
+SCALEDOWN_WINDOW = 60              # seconds idle before the container stops (scale to zero)
+MAX_CONTAINERS = 1                # hard cap: only ever one A10G alive at once
 VLLM_PORT = 8000
 
 image = (
@@ -58,6 +62,7 @@ auth_secret = modal.Secret.from_name("vllm-api-key")
     volumes={ADAPTER_PATH: adapter_volume, "/root/.cache/huggingface": hf_cache_volume},
     secrets=[auth_secret],
     scaledown_window=SCALEDOWN_WINDOW,
+    max_containers=MAX_CONTAINERS,  # never spin up a second GPU
     timeout=600,
 )
 @modal.web_server(port=VLLM_PORT, startup_timeout=300)
