@@ -25,10 +25,8 @@ Warm it before a demo:
 """
 import modal
 
-# The adapter weights written by modal_train.py live in this volume at /output/adapter.
+# The adapter weights written by modal_train.py live in this volume under adapter/.
 adapter_volume = modal.Volume.from_name("510k-finetune-output", create_if_missing=True)
-# Cache base-model weights between cold starts so we don't re-download 15GB each time.
-hf_cache_volume = modal.Volume.from_name("510k-hf-cache", create_if_missing=True)
 
 BASE_MODEL = "Qwen/Qwen2.5-7B-Instruct"
 ADAPTER_NAME = "510k-se"            # the `model` value the backend requests
@@ -40,6 +38,14 @@ SCALEDOWN_WINDOW = 60              # seconds idle before the container stops (sc
 MAX_CONTAINERS = 1                # hard cap: only ever one A10G alive at once
 VLLM_PORT = 8000
 
+
+def _download_base_model():
+    """Bake the base model into the image at build time so cold starts never have to
+    download 15GB at request time (which would risk a startup timeout)."""
+    from huggingface_hub import snapshot_download
+    snapshot_download(BASE_MODEL, ignore_patterns=["*.pth", "original/*"])
+
+
 image = (
     modal.Image.debian_slim(python_version="3.11")
     .pip_install(
@@ -47,6 +53,7 @@ image = (
         "huggingface_hub[hf_transfer]==0.27.0",
     )
     .env({"HF_HUB_ENABLE_HF_TRANSFER": "1"})
+    .run_function(_download_base_model)   # weights live in the image, not downloaded at runtime
 )
 
 app = modal.App("510k-serve")
@@ -59,13 +66,13 @@ auth_secret = modal.Secret.from_name("vllm-api-key")
 @app.function(
     image=image,
     gpu="A10G",                     # 24GB, fits Qwen2.5-7B bf16 (~15GB) + KV cache
-    volumes={ADAPTER_PATH: adapter_volume, "/root/.cache/huggingface": hf_cache_volume},
+    volumes={ADAPTER_PATH: adapter_volume},
     secrets=[auth_secret],
     scaledown_window=SCALEDOWN_WINDOW,
     max_containers=MAX_CONTAINERS,  # never spin up a second GPU
     timeout=600,
 )
-@modal.web_server(port=VLLM_PORT, startup_timeout=300)
+@modal.web_server(port=VLLM_PORT, startup_timeout=600)
 def serve():
     """Launch vLLM's OpenAI-compatible server with the base model + LoRA adapter."""
     import os
